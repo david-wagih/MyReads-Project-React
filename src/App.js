@@ -11,6 +11,7 @@ function App() {
           <div className="search-books-bar">
             <a
               className="close-search"
+              href="/search"
               onClick={() => setShowSearchpage(!showSearchPage)}
             >
               Close
@@ -273,7 +274,12 @@ function App() {
             </div>
           </div>
           <div className="open-search">
-            <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
+            <a
+              href="/search"
+              onClick={() => setShowSearchpage(!showSearchPage)}
+            >
+              Add a book
+            </a>
           </div>
         </div>
       )}
