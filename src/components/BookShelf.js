@@ -7,7 +7,7 @@ const BookShelf = ({ title, books }) => {
       <div className="bookshelf-books">
         <ol className="books-grid">
           {books.map((book) => (
-            <li>
+            <li key={book.id}>
               <Book
                 title={book.title}
                 author={book.authors[0]}
