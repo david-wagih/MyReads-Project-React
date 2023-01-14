@@ -9,8 +9,10 @@ const BookShelf = ({ title, books }) => {
           {books.map((book) => (
             <li key={book.id}>
               <Book
+                bookObj={book}
+                bookId={book.id}
                 title={book.title}
-                author={book.authors[0]}
+                author={book.authors[0] ? book.authors[0] : ""}
                 image={book.imageLinks.smallThumbnail}
               />
             </li>
