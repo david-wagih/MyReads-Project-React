@@ -17,16 +17,24 @@ const HomePage = () => {
     };
     const getCurrentlyReadingBooks = () => {
       setCurrentlyReadingBooks(
-        allBooks.filter((book) => book.shelf === "currentlyReading")
+        allBooks.filter(
+          (book) => book.shelf === "currentlyReading" && book.shelf !== "none"
+        )
       );
     };
     const getWantToReadBooks = () => {
       setWantToReadBooks(
-        allBooks.filter((book) => book.shelf === "wantToRead")
+        allBooks.filter(
+          (book) => book.shelf === "wantToRead" && book.shelf !== "none"
+        )
       );
     };
     const getReadBooks = () => {
-      setReadBooks(allBooks.filter((book) => book.shelf === "read"));
+      setReadBooks(
+        allBooks.filter(
+          (book) => book.shelf === "read" && book.shelf !== "none"
+        )
+      );
     };
     getAllBooks();
     getCurrentlyReadingBooks();
