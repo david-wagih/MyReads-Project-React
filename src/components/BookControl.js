@@ -16,7 +16,7 @@ const BookControl = ({ book }) => {
     };
     getBookShelf();
     return () => {
-      console.log("Clean");
+      console.log("clean");
     };
   });
 
