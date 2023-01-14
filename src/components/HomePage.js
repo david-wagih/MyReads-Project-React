@@ -32,7 +32,9 @@ const HomePage = () => {
     getCurrentlyReadingBooks();
     getWantToReadBooks();
     getReadBooks();
-    return () => {};
+    return () => {
+      console.log("clean");
+    };
   }, [allBooks]);
   return (
     <div className="app">

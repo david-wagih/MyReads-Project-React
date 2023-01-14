@@ -3,6 +3,7 @@ import { update, get } from "../BooksAPI";
 
 const BookControl = ({ book }) => {
   const [shelf, setShelf] = useState("none");
+
   const handleBookShelfChange = async (e) => {
     setShelf(e.target.value);
     await update(book, e.target.value);
@@ -14,7 +15,9 @@ const BookControl = ({ book }) => {
       setShelf(data.shelf !== "" ? data.shelf : "none");
     };
     getBookShelf();
-    return () => {};
+    return () => {
+      console.log("Clean");
+    };
   });
 
   return (
