@@ -1,24 +1,23 @@
 import { useState, useEffect } from "react";
 import { update, get } from "../BooksAPI";
 
-const BookControl = ({ book }) => {
-  const [shelf, setShelf] = useState("none");
+const BookControl = (props) => {
+  let book = props.book;
+  let [shelf, setShelf] = useState(book.shelf);
 
   const handleBookShelfChange = async (e) => {
     setShelf(e.target.value);
     await update(book, e.target.value);
+    //console.log(book);
   };
 
-  useEffect(() => {
-    const getBookShelf = async () => {
-      const data = await get(book.id);
-      setShelf(data.shelf !== "" ? data.shelf : "none");
-    };
-    getBookShelf();
-    return () => {
-      console.log("clean");
-    };
-  });
+  // useEffect(async () => {
+  //   const data = await get(book.id);
+  //   setShelf(data.shelf !== "" ? data.shelf : "none");
+  //   // return () => {
+  //   //   console.log("clean");
+  //   // };
+  // }, []);
 
   return (
     <div className="book-shelf-changer">

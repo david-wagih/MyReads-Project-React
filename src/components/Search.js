@@ -1,17 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { search } from "../BooksAPI";
+import { getAllBooks } from "../services/getAllBooks";
 import Book from "./Book";
 
 const Search = () => {
   const [searchText, setSearchText] = useState("");
+  const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
 
+  useEffect(() => {
+    const getBooks = async () => {
+      const data = await getAllBooks();
+      setAllBooks(data);
+    };
+    getBooks();
+  }, [allBooks]);
+
+  function compareBooks(book1, allBooks) {
+    if (allBooks.length > 0) {
+      allBooks.forEach((book) => {
+        if (book1.id === book.id) {
+          book1.shelf = book.shelf;
+        } else {
+          book1.shelf = "none";
+        }
+      });
+    }
+  }
   const handleSearch = async (e) => {
     setSearchText(e.target.value);
     if (e.target.value !== "") {
-      const data = await search(e.target.value, 10);
-      setFilteredBooks(data);
+      const data = await search(e.target.value, 20);
+      if (data.length > 0) {
+        data.forEach((searchResult) => {
+          compareBooks(searchResult, allBooks);
+        });
+        setFilteredBooks(data);
+      } else {
+        setFilteredBooks([]);
+      }
     } else {
       setFilteredBooks([]);
     }
@@ -41,7 +69,7 @@ const Search = () => {
                   bookId={book.id}
                   title={book.title}
                   author={book.authors ? book.authors[0] : " "}
-                  image={book.imageLinks.smallThumbnail}
+                  image={book.imageLinks ? book.imageLinks.smallThumbnail : ""}
                 />
               </li>
             ))}

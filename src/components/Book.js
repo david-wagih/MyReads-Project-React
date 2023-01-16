@@ -13,7 +13,7 @@ const Book = ({ title, author, image, bookId, bookObj }) => {
         ></div>
         <BookControl book={bookObj} />
       </div>
-      <div className="book-title">T{title}</div>
+      <div className="book-title">{title}</div>
       <div className="book-authors">{author ? author : " "}</div>
     </div>
   );

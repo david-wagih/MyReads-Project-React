@@ -13,7 +13,11 @@ const HomePage = () => {
   useEffect(() => {
     const getAllBooks = async () => {
       const books = await getAll();
-      setAllBooks(books);
+      if (books.length > 0) {
+        setAllBooks(books);
+      } else {
+        setAllBooks([]);
+      }
     };
     const getCurrentlyReadingBooks = () => {
       setCurrentlyReadingBooks(
@@ -40,9 +44,6 @@ const HomePage = () => {
     getCurrentlyReadingBooks();
     getWantToReadBooks();
     getReadBooks();
-    return () => {
-      console.log("clean");
-    };
   }, [allBooks]);
   return (
     <div className="app">
