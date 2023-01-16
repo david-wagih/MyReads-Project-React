@@ -1,24 +1,15 @@
 import "../App.css";
 import { useEffect, useState } from "react";
 import BookShelf from "./BookShelf";
-import { getAll } from "../BooksAPI";
 import SearchButton from "./SearchButton";
 
-const HomePage = () => {
-  const [allBooks, setAllBooks] = useState([]);
+const HomePage = (props) => {
+  const allBooks = props.books;
   const [currentlyReadingBooks, setCurrentlyReadingBooks] = useState([]);
   const [wantToReadBooks, setWantToReadBooks] = useState([]);
   const [ReadBooks, setReadBooks] = useState([]);
 
   useEffect(() => {
-    const getAllBooks = async () => {
-      const books = await getAll();
-      if (books.length > 0) {
-        setAllBooks(books);
-      } else {
-        setAllBooks([]);
-      }
-    };
     const getCurrentlyReadingBooks = () => {
       setCurrentlyReadingBooks(
         allBooks.filter(
@@ -40,7 +31,6 @@ const HomePage = () => {
         )
       );
     };
-    getAllBooks();
     getCurrentlyReadingBooks();
     getWantToReadBooks();
     getReadBooks();

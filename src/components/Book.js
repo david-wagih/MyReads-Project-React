@@ -1,5 +1,5 @@
 import BookControl from "./BookControl";
-const Book = ({ title, author, image, bookId, bookObj }) => {
+const Book = ({ title, author, image, bookObj }) => {
   return (
     <div className="book">
       <div className="book-top">
