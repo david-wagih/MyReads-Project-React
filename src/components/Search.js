@@ -23,6 +23,7 @@ const Search = ({ handleBookShelfChange }) => {
         data.map(async (book) => (book.shelf = await getBookShelf(book)));
         setFilteredBooks(data);
         setExists(true);
+        console.log(handleBookShelfChange);
       } else {
         setFilteredBooks([]);
         setExists(false);

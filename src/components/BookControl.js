@@ -12,21 +12,19 @@ const BookControl = (props) => {
 
   return (
     <div className="book-shelf-changer">
-      {book.shelf && (
-        <select
-          value={shelf}
-          onChange={(e) => props.handleBookShelfChange(book, e.target.value)}
-        >
-          <option value="none" disabled>
-            Move to...
+      <select
+        value={shelf}
+        onChange={(e) => props.handleBookShelfChange(book, e.target.value)}
+      >
+        <option value="none" disabled>
+          Move to...
+        </option>
+        {shelvesOptions.map((shelf) => (
+          <option key={shelf.id} value={shelf.shelfName}>
+            {shelf.shelfDisplayName}
           </option>
-          {shelvesOptions.map((shelf) => (
-            <option key={shelf.id} value={shelf.shelfName}>
-              {shelf.shelfDisplayName}
-            </option>
-          ))}
-        </select>
-      )}
+        ))}
+      </select>
     </div>
   );
 };
