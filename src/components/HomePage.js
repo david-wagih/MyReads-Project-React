@@ -9,31 +9,29 @@ const HomePage = (props) => {
   const [wantToReadBooks, setWantToReadBooks] = useState([]);
   const [ReadBooks, setReadBooks] = useState([]);
 
+  const getCurrentlyReadingBooks = (allBooks) => {
+    setCurrentlyReadingBooks(
+      allBooks.filter(
+        (book) => book.shelf === "currentlyReading" && book.shelf !== "none"
+      )
+    );
+  };
+  const getWantToReadBooks = (allBooks) => {
+    setWantToReadBooks(
+      allBooks.filter(
+        (book) => book.shelf === "wantToRead" && book.shelf !== "none"
+      )
+    );
+  };
+  const getReadBooks = (allBooks) => {
+    setReadBooks(
+      allBooks.filter((book) => book.shelf === "read" && book.shelf !== "none")
+    );
+  };
   useEffect(() => {
-    const getCurrentlyReadingBooks = () => {
-      setCurrentlyReadingBooks(
-        allBooks.filter(
-          (book) => book.shelf === "currentlyReading" && book.shelf !== "none"
-        )
-      );
-    };
-    const getWantToReadBooks = () => {
-      setWantToReadBooks(
-        allBooks.filter(
-          (book) => book.shelf === "wantToRead" && book.shelf !== "none"
-        )
-      );
-    };
-    const getReadBooks = () => {
-      setReadBooks(
-        allBooks.filter(
-          (book) => book.shelf === "read" && book.shelf !== "none"
-        )
-      );
-    };
-    getCurrentlyReadingBooks();
-    getWantToReadBooks();
-    getReadBooks();
+    getCurrentlyReadingBooks(allBooks);
+    getWantToReadBooks(allBooks);
+    getReadBooks(allBooks);
   }, [allBooks]);
   return (
     <div className="app">
@@ -44,11 +42,20 @@ const HomePage = (props) => {
         <div className="list-books-content">
           <div>
             <BookShelf
+              handleBookShelfChange={props.handleBookShelfChange}
               title="Currently Reading"
               books={currentlyReadingBooks}
             />
-            <BookShelf title="Want to Read" books={wantToReadBooks} />
-            <BookShelf title="Read" books={ReadBooks} />
+            <BookShelf
+              handleBookShelfChange={props.handleBookShelfChange}
+              title="Want to Read"
+              books={wantToReadBooks}
+            />
+            <BookShelf
+              handleBookShelfChange={props.handleBookShelfChange}
+              title="Read"
+              books={ReadBooks}
+            />
           </div>
         </div>
         <SearchButton />

@@ -1,6 +1,6 @@
 import Book from "./Book";
 
-const BookShelf = ({ title, books }) => {
+const BookShelf = ({ title, books, handleBookShelfChange }) => {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
@@ -9,6 +9,7 @@ const BookShelf = ({ title, books }) => {
           {books.map((book) => (
             <li key={book.id}>
               <Book
+                handleBookShelfChange={handleBookShelfChange}
                 bookObj={book}
                 bookId={book.id}
                 title={book.title}

@@ -1,5 +1,5 @@
 import BookControl from "./BookControl";
-const Book = ({ title, author, image, bookObj }) => {
+const Book = ({ title, author, image, bookObj, handleBookShelfChange }) => {
   return (
     <div className="book">
       <div className="book-top">
@@ -11,7 +11,10 @@ const Book = ({ title, author, image, bookObj }) => {
             backgroundImage: `url(${image})`,
           }}
         ></div>
-        <BookControl book={bookObj} />
+        <BookControl
+          handleBookShelfChange={handleBookShelfChange}
+          book={bookObj}
+        />
       </div>
       <div className="book-title">{title}</div>
       <div className="book-authors">{author ? author : " "}</div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { get, search } from "../BooksAPI";
 import Book from "./Book";
 
-const Search = (props) => {
+const Search = ({ handleBookShelfChange }) => {
   const [searchText, setSearchText] = useState("");
   //const allBooks = props.books;
   const [filteredBooks, setFilteredBooks] = useState([]);
@@ -11,7 +11,9 @@ const Search = (props) => {
 
   async function getBookShelf(book) {
     const bookShelf = await get(book.id);
-    return bookShelf.shelf !== "none" ? bookShelf.shelf : "none";
+    if (bookShelf.shelf) {
+      return bookShelf.shelf;
+    }
   }
   const handleSearch = async (e) => {
     setSearchText(e.target.value);
@@ -50,6 +52,7 @@ const Search = (props) => {
             filteredBooks.map((book) => (
               <li key={book.id}>
                 <Book
+                  handleBookShelfChange={handleBookShelfChange}
                   bookObj={book}
                   bookId={book.id}
                   title={book.title}

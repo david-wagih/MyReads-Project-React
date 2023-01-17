@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
-import { update } from "../BooksAPI";
 import { shelvesOptions } from "../utils/shelfOptions";
 
 const BookControl = (props) => {
   const book = props.book;
   const bookShelf = props.book.shelf;
   const [shelf, setShelf] = useState(bookShelf);
-
-  const handleBookShelfChange = async (e) => {
-    setShelf(e.target.value);
-    await update(book, e.target.value);
-  };
 
   useEffect(() => {
     setShelf(bookShelf);
@@ -19,7 +13,10 @@ const BookControl = (props) => {
   return (
     <div className="book-shelf-changer">
       {book.shelf && (
-        <select value={shelf} onChange={handleBookShelfChange}>
+        <select
+          value={shelf}
+          onChange={(e) => props.handleBookShelfChange(book, e.target.value)}
+        >
           <option value="none" disabled>
             Move to...
           </option>
