@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { update } from "../BooksAPI";
+import { shelvesOptions } from "../utils/shelfOptions";
 
 const BookControl = (props) => {
   const book = props.book;
@@ -22,10 +23,11 @@ const BookControl = (props) => {
           <option value="none" disabled>
             Move to...
           </option>
-          <option value="currentlyReading">Currently Reading</option>
-          <option value="wantToRead">Want to Read</option>
-          <option value="read">Read</option>
-          <option value="none">None</option>
+          {shelvesOptions.map((shelf) => (
+            <option key={shelf.id} value={shelf.shelfName}>
+              {shelf.shelfDisplayName}
+            </option>
+          ))}
         </select>
       )}
     </div>

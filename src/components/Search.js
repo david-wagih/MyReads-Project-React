@@ -7,6 +7,7 @@ const Search = (props) => {
   const [searchText, setSearchText] = useState("");
   //const allBooks = props.books;
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [exists, setExists] = useState();
 
   async function getBookShelf(book) {
     const bookShelf = await get(book.id);
@@ -19,8 +20,10 @@ const Search = (props) => {
       if (data.length > 0) {
         data.map(async (book) => (book.shelf = await getBookShelf(book)));
         setFilteredBooks(data);
+        setExists(true);
       } else {
         setFilteredBooks([]);
+        setExists(false);
       }
     } else {
       setFilteredBooks([]);
@@ -55,6 +58,7 @@ const Search = (props) => {
                 />
               </li>
             ))}
+          {!exists && <div>No Books Found.</div>}
         </ol>
       </div>
     </div>
