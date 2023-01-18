@@ -1,29 +1,30 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { get, search } from "../BooksAPI";
+import { search } from "../BooksAPI";
 import Book from "./Book";
 
-const Search = ({ handleBookShelfChange }) => {
+const Search = ({ handleBookShelfChange, books }) => {
   const [searchText, setSearchText] = useState("");
-  //const allBooks = props.books;
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [exists, setExists] = useState();
 
-  async function getBookShelf(book) {
-    const bookShelf = await get(book.id);
-    if (bookShelf.shelf) {
-      return bookShelf.shelf;
-    }
-  }
   const handleSearch = async (e) => {
     setSearchText(e.target.value);
     if (e.target.value !== "") {
       const data = await search(e.target.value, 20);
       if (data.length > 0) {
-        data.map(async (book) => (book.shelf = await getBookShelf(book)));
+        data.map((searchResult) => {
+          const match = books.find((book) => book.id === searchResult.id);
+          if (match && match.shelf) {
+            searchResult.shelf = match.shelf;
+          } else {
+            searchResult.shelf = "none";
+          }
+          return searchResult;
+        });
+
         setFilteredBooks(data);
         setExists(true);
-        console.log(handleBookShelfChange);
       } else {
         setFilteredBooks([]);
         setExists(false);
