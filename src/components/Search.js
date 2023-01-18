@@ -12,6 +12,7 @@ const Search = ({ handleBookShelfChange, books }) => {
     setSearchText(e.target.value);
     if (e.target.value !== "") {
       const data = await search(e.target.value, 20);
+      // this is the logic for comparing the search results against all books I have to get the shelf value from them if exists
       if (data.length > 0) {
         data.map((searchResult) => {
           const match = books.find((book) => book.id === searchResult.id);
